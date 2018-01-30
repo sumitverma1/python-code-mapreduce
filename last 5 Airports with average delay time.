@@ -1,0 +1,21 @@
+import pandas as pd
+import operator
+from itertools import islice
+
+
+df1 = pd.read_csv('C:\\Users\\admin\\Downloads\\Compressed\\airport.csv',names=['name','country','area_code','origin'],encoding='latin-1')
+
+df2=pd.read_csv('C:\\Users\\admin\\Downloads\\Compressed\\2008.csv',names=['year','month','day','day_of_week','dep_time','crs_dep_time','arr_time','crs_arr_time','unique_carrier','flight_num','tail_num','actual_elapsed_time','crs_elapsed_time','air_time','arr_delay','dep_delay','origin','dest','distance','taxi_in','taxi_out','cancelled','cancellation_code','diverted','carrier_delay','weather_delay','nas_delay','security_delay','late_aircraft_delay'],encoding='latin-1')
+
+df3=pd.merge(df1, df2, on='origin', how='inner')
+
+df4=df3['arr_delay'].groupby(df3['name']).mean()
+
+df5=sorted(df4.items(), key=operator.itemgetter(1))
+
+df6=sorted(df4.items(), key=operator.itemgetter(1),reverse=True)
+
+last_delay=list(islice(df5, 5))
+
+print(last_delay)
+
