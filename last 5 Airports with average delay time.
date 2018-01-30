@@ -13,8 +13,6 @@ df4=df3['arr_delay'].groupby(df3['name']).mean()
 
 df5=sorted(df4.items(), key=operator.itemgetter(1))
 
-df6=sorted(df4.items(), key=operator.itemgetter(1),reverse=True)
-
 last_delay=list(islice(df5, 5))
 
 print(last_delay)
